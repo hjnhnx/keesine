@@ -1,54 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <%- include('components/head.ejs') %>
     <style>
-        .icon-container {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-        }
+      .icon-container {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+      }
     </style>
     <title>Profile</title>
-</head>
-<body>
-<%- include('components/nav.ejs') %>
-<div style="max-width: 550px; margin: 10px auto " class="border overflow-hidden p-2">
-    <div>
+  </head>
+  <body>
+    <%- include('components/nav.ejs') %>
+    <div
+      style="max-width: 550px; margin: 10px auto"
+      class="border overflow-hidden p-2"
+    >
+      <div>
         <div>
-            <img src="<%= user.avatar %>" alt="<%= user.userName %>" class="img-fluid">
+          <img
+            src="<%= user.avatar %>"
+            alt="<%= user.userName %>"
+            class="img-fluid"
+          />
         </div>
         <div class="col-md-12">
-            <h2><%= user.userName %></h2>
-            <p><strong>Email:</strong> <a href="mailto:<%= user.email %>"><%= user.email %></a></p>
-            <p><strong>Phone:</strong> <a href="tel:<%= user.phoneNumber %>"><%= user.phoneNumber %></a></p>
-            <div class="icon-container">
-                <a target="_blank" href="<%= user.facebook %>" title="facebook" class="text-primary font-weight-bold">
-                    <i class="bi bi-facebook"></i>
-                </a>
-                <a target="_blank" href="<%= user.fanPage %>" title="fan page" class="text-info font-weight-bold">
-                    <i class="bi bi-award"></i>
-                </a>
-                <a target="_blank" href="<%= user.group %>" title="group" class="text-info font-weight-bold">
-                    <i class="bi bi-people"></i>
-                </a>
-                <a target="_blank" href="<%= user.github %>" title="github" class="text-black-50 font-weight-bold">
-                    <i class="bi bi-github"></i>
-                </a>
-                <a target="_blank" href="<%= user.instagram %>" title="instagram" class="text-danger font-weight-bold">
-                    <i class="bi bi-instagram"></i>
-                </a>
-                <a target="_blank" href="<%= user.twitter %>" title="twitter" class="text-primary font-weight-bold">
-                    <i class="bi bi-twitter"></i>
-                </a>
-            </div>
+          <h2><%= user.userName %></h2>
+          <p>
+            <strong>Email:</strong>
+            <a href="mailto:<%= user.email %>"><%= user.email %></a>
+          </p>
+          <p>
+            <strong>Phone:</strong>
+            <a href="tel:<%= user.phoneNumber %>"><%= user.phoneNumber %></a>
+          </p>
+          <div class="icon-container">
+            <a
+              target="_blank"
+              href="<%= user.facebook %>"
+              title="facebook"
+              class="text-primary font-weight-bold"
+            >
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a
+              target="_blank"
+              href="<%= user.fanPage %>"
+              title="fan page"
+              class="text-info font-weight-bold"
+            >
+              <i class="bi bi-award"></i>
+            </a>
+            <a
+              target="_blank"
+              href="<%= user.group %>"
+              title="group"
+              class="text-info font-weight-bold"
+            >
+              <i class="bi bi-people"></i>
+            </a>
+            <a
+              target="_blank"
+              href="<%= user.github %>"
+              title="github"
+              class="text-black-50 font-weight-bold"
+            >
+              <i class="bi bi-github"></i>
+            </a>
+            <a
+              target="_blank"
+              href="<%= user.instagram %>"
+              title="instagram"
+              class="text-danger font-weight-bold"
+            >
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a
+              target="_blank"
+              href="<%= user.twitter %>"
+              title="twitter"
+              class="text-primary font-weight-bold"
+            >
+              <i class="bi bi-twitter"></i>
+            </a>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<div style="max-width: 550px; margin: 10px auto;" class="border overflow-hidden p-2">
-    <a class="btn btn-danger btn-block">Back</a>
-    <a class="btn btn-warning btn-block">Edit</a>
-</div>
-<%- include('components/script.ejs') %>
-</body>
+    <div
+      style="max-width: 550px; margin: 10px auto"
+      class="border overflow-hidden p-2"
+    >
+      <a class="btn btn-danger btn-block">Back</a>
+      <a class="btn btn-warning btn-block">Edit</a>
+    </div>
+    <%- include('components/script.ejs') %>
+  </body>
 </html>

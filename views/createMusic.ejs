@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('components/head.ejs') %>
+    <style>
+        .error {
+            color: #fa7070;
+        }
+    </style>
+    <title>NEW SONG</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto mt-5">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4>KEERA MUSIC</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/music/create" class="container mx-auto" name="music_form" id="music_form">
+                        <div class="form-group">
+                            <label for="author">Author:</label>
+                            <input type="text" class="form-control" id="author" name="author">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="singer">Singer:</label>
+                            <input type="text" class="form-control" id="singer" name="singer">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="thumbnail">Thumbnail:</label>
+                            <button type="button" class="btn btn-info btn-block btn-choose-image">Choose thumbnail
+                            </button>
+                            <div style="display: none">
+                                <input type="file" class="form-control" id="thumbnail-file">
+                            </div>
+                            <input type="hidden" class="file_thumbnail" id="file_thumbnail" name="thumbnail"
+                                   value="https://res.cloudinary.com/keesine/image/upload/v1682067462/istockphoto-1175435360-612x612_v15adx.jpg">
+                            <div style="width: 100%" class="mt-1 border">
+                                <img src="https://res.cloudinary.com/keesine/image/upload/v1682067462/istockphoto-1175435360-612x612_v15adx.jpg"
+                                     style="width: 100%; object-fit:cover; height: 300px" id="show_img_thumbnail"
+                                     alt="">
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="thumbnail">MP3:</label>
+                            <button type="button" class="btn btn-success btn-block btn-choose-mp3">Choose mp3 file
+                            </button>
+                            <div style="display: none" class="mb-2">
+                                <input type="file" class="form-control" id="mp3-file">
+                            </div>
+                            <input type="hidden" class="file_mp3" id="file_mp3" name="mp3">
+                            <hr>
+                            <div style="width: 100%">
+                                <audio id="demo_audio" controls style="width: 100%"></audio>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lyric">Lyric:</label>
+                            <textarea class="form-control" id="lyric" name="lyric" rows="15"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger btn-block">Create</button>
+                        <button type="button" class="btn btn-warning btn-block">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('components/script.ejs') %>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $(document).ready(function () {
+            $("#music_form").validate({
+                rules: {
+                    author: "required",
+                    singer: "required",
+                    title: "required",
+                    mp3: "required",
+                    lyric: "required"
+                },
+                messages: {
+                    author: "Please enter the author",
+                    singer: "Please enter the singer",
+                    title: "Please enter the title",
+                    mp3: "Please choice mp3 file",
+                    lyric: "Please enter the lyric"
+                },
+            });
+        });
+
+        var btnChooseImage = $('.btn-choose-image')
+        var btnChooseMp3 = $('.btn-choose-mp3')
+        btnChooseImage.click(function () {
+            $('#thumbnail-file').click()
+        })
+        btnChooseMp3.click(function () {
+            $('#mp3-file').click()
+        })
+
+        const cloudName = "keesine";
+        const key = "zmbqxi0r";
+        const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`
+
+        $('#thumbnail-file').change(function () {
+            let formData = new FormData();
+            formData.append('upload_preset', key);
+            let file = this.files[0];
+            formData.append('file', file)
+            axios.post(url, formData).then((result) => {
+                $('#show_img_thumbnail').attr('src', result.data.url);
+                $('#file_thumbnail').val(result.data.url);
+            }).catch((err) => {
+                console.log(err)
+                alert("đã xảy ra lỗi trong quá trình tải ảnh lên vui lòng thử lại")
+            })
+
+        });
+
+
+        $('#mp3-file').change(function () {
+            let formData = new FormData();
+            formData.append('upload_preset', key);
+            let file = this.files[0];
+            formData.append('file', file)
+            axios.post(url, formData).then((result) => {
+                $('#file_mp3').val(result.data.url);
+                $('#demo_audio').attr('src', result.data.url)
+            }).catch((err) => {
+                console.log(err)
+                alert("đã xảy ra lỗi trong quá trình tải mp3 lên vui lòng thử lại")
+            })
+
+        });
+    })
+</script>
+</body>
+</html>
